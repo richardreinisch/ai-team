@@ -1,0 +1,83 @@
+
+html, body {
+    background: #111;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.fixed-top-background {
+    background: rgba(0, 0, 0, .8);
+}
+
+.img-max {
+    max-width: 100px;
+    width: 100%;
+}
+
+.img-max.selectedRecipient {
+    max-width: 111px;
+}
+
+.img-max:not(.selected):not(.selectedRecipient):hover {
+    border: 2px solid #fff;
+    opacity: 1;
+}
+
+.img-max:hover {
+    cursor: pointer;
+}
+
+.img-max:not(.selected):not(.selectedRecipient) {
+    opacity: 0.4;
+}
+
+.alert-tiny {
+    font-size: 14px;
+    padding: 2px 7px 2px 7px;
+}
+
+.response-container-code {
+    font-size: 12px;
+    overflow-x: auto;
+    max-height: 70vh;
+}
+
+.response-container-text {
+    font-size: 14px;
+    overflow-x: auto;
+    max-height: 70vh;
+    white-space: pre-wrap;
+}
+
+pre {
+    font-size: 12px;
+    margin: 0;
+}
+
+pre, code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: hidden;
+}
+
+#chatHistoryContainer {
+    margin-top: 300px;
+}
+
+#autoContainer {
+    display: none;
+}
+
+.card-max-width {
+    max-width: 540px;
+}
