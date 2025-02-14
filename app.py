@@ -1,10 +1,15 @@
 
 import configparser
+import time
 import uuid
 import ollama
 import asyncio
 import websockets
 import json
+import requests
+import sounddevice as sd
+import numpy as np
+import re
 
 from threading import Lock
 from typing import Any, Optional, List
@@ -173,8 +178,41 @@ class MiniWebSocket:
                 message_handler = WebSocketMessageHandler(message_received)
                 prepared_websocket_response = message_handler.handle()
                 await self.send_websocket_message(json.dumps(prepared_websocket_response))
+                TTS.speak(prepared_websocket_response)
         except websockets.exceptions.ConnectionClosedOK as e:
             print(Fore.GREEN + f"Websocket client closed: { e }")
+
+class TTS:
+    @staticmethod
+    def speak(response):
+        character_id = response["character"]["id"]
+        text = response["message"]["content"]
+        text = re.sub(r'\(.*?\)', '', text) # Text between ([TEXT])
+        text = re.sub(r'\*.*?\*', '', text) # Text between *[TEXT]*
+        text = text.replace("*", "")
+        url = "http://127.0.0.1:8000"
+        headers = {"accept": "application/json"}
+        model_file = CHARACTERS[character_id]["tts-model"] + ".onnx"
+        params = {"file": model_file, "speaker": ""}
+        parts = re.split(r'(?<=[.!?])\s*(?=\S)|\r?\n', text) # Split by . and \n, \r, etc.
+        limit = 5 # Limit speaking to 5 sequences
+
+        for part in parts:
+            if limit > 0:
+                if len(part) < 3:
+                    time.sleep(1)
+                else:
+                    print("send load: ", model_file)
+                    response = requests.post(url + "/load", params=params, headers=headers)
+                    print(response)
+                    params = {"text": part}
+                    print("send: ", part)
+                    response = requests.post(url + "/predict", params=params, headers=headers)
+                    print(response)
+                    data = response.json()
+                    npa = np.asarray(data['data'], dtype=np.int16)
+                    sd.play(npa, data['sample-rate'], blocking=True)
+                    limit = limit - 1
 
 class Logger:
     @staticmethod
