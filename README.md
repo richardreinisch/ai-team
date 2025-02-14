@@ -86,7 +86,7 @@ Start the app using:
 python app.py
 ```
 
-Open [index.html](index.html) in your browser.
+Open [main.html](main.html) in your browser.
 
 ### Interaction:
 
@@ -119,7 +119,7 @@ ollama create dr_sigmund_leud -f modelfiles/Modelfile-dr_sigmund_leud
 
 ### Offline Libraries
 
-> **Note**: To ensure offline functionality, download all necessary libraries and resources (e.g., jQuery, Bootstrap, Highlight.js) and replace the URLs in **index.html** with local paths.
+> **Note**: To ensure offline functionality, download all necessary libraries and resources (e.g., jQuery, Bootstrap, Highlight.js) and replace the URLs in **main.html** with local paths.
 
 ---
 
