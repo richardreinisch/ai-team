@@ -115,6 +115,7 @@ ollama create jimmy_roar -f modelfiles/Modelfile-jimmy_roar
 ollama create neil_knows -f modelfiles/Modelfile-neil_knows
 ollama create sophia_akasha_lightray -f modelfiles/Modelfile-sophia_akasha_lightray
 ollama create dr_sigmund_leud -f modelfiles/Modelfile-dr_sigmund_leud
+ollama create zoe_voss -f modelfiles/Modelfile-zoe_voss
 ```
 
 ### Offline Libraries

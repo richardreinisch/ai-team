@@ -91,8 +91,9 @@ const ElementRenderer = (function() {
             innerContainer.append($("<div class='col-md-11'>").append($("<div class='card-body'>")
                 .append($("<p class='card-text response-container-code'>").append($("<pre>").append(codeBlock)))));
         } else {
-            innerContainer.append($("<div class='col-md-11'>").append($("<div class='card-body'>")
-                .append($("<p class='card-text response-container-text'>").text(textToShow))));
+            content = $("<p class='card-text response-container-text'>").text(textToShow);
+            const cardBody = $("<div class='card-body'>").append(content);
+            innerContainer.append($("<div class='col-md-11'>").append(cardBody));
         }
 
         $("#chatHistoryContainer").append($("<div class='row'>").append($("<div class='col-12'>")
@@ -100,6 +101,40 @@ const ElementRenderer = (function() {
             .append(innerContainer))));
 
         hljs.highlightElement(codeBlock[0]);
+
+        renderImageResponseContainer(response);
+
+    }
+
+    function renderImageResponseContainer(response) {
+
+        const innerContainer = $("<div class='row g-0'>");
+        const modelName = response["model"];
+        const image = $("<img src='images/" + modelName + ".png' class='img-fluid rounded-start' alt='" +
+            response["character"]["name"] + "'>")
+        innerContainer.append($("<div class='col-md-1'>").append(image));
+        const backgroundColor = response["character"]["color-web"];
+
+        content = undefined;
+
+        if (response.additional) {
+            const isValidDataURL = response.additional.startsWith("data:image/");
+            if (isValidDataURL) {
+                content = $("<img src=" + response["additional"] + " class='img-fluid rounded response-image' alt='" +
+            "Rendered Image" + "'>")
+            }
+        }
+
+        if (content != undefined) {
+
+            const cardBody = $("<div class='card-body'>").append(content);
+            innerContainer.append($("<div class='col-md-11'>").append(cardBody));
+
+            $("#chatHistoryContainer").append($("<div class='row'>").append($("<div class='col-12'>")
+                .append($("<div class='card mb-3' style='max-width: 1300px; background-color: " + backgroundColor + ";'>")
+                .append(innerContainer))));
+
+        }
 
     }
 

@@ -59,6 +59,10 @@ html, body {
     white-space: pre-wrap;
 }
 
+.response-image {
+    max-height: 400px;
+}
+
 pre {
     font-size: 12px;
     margin: 0;
