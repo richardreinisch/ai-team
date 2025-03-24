@@ -2,3 +2,4 @@
 .idea/
 db/*
 images/*.xcf
+*.pyc
