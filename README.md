@@ -15,6 +15,8 @@ AI Team is a group of expert personas you can interact with:
 
 ## Example Outputs
 
+[![watch video on youtube](https://img.youtube.com/vi/YyiGuRs-XnI/0.jpg)](https://www.youtube.com/watch?v=YyiGuRs-XnI)
+
 ![example_chat.png](images/example_chat.png)
 
 ---
