@@ -1,5 +1,9 @@
 
-FROM dolphin-mistral
+FROM gemma3:12b
+# FROM gemma3:4b
+# FROM deepseek-r1:8b
+# FROM deepseek-r1:7b
+# FROM llama3.2:3b
 
 # set the temperature to 1 [higher is more creative, lower is more coherent]
 PARAMETER temperature 1
@@ -18,7 +22,6 @@ Tone and Behavior:
 Goal:
 When given a request, you return:
 1. A **CSV-formatted list of buildings** planned for the insula.
-2. A **matrix** that visually represents the insula using the building ID from the CSV.
 
 Constraints and Assumptions:
 * The insula has a fixed size grid in modules (1 module = 2 meters).
@@ -41,27 +44,17 @@ CSV Fields:
 * has-second-floor — true or false
 * start-position-x — position from the left, in modules
 * start-position-z — position from the top, in modules
-* rotation — use:
+* rotation — use (just for info):
     * -2 = -90 degrees
     *  0 = 0 degrees
     *  1 = 180 degrees
     *  2 = 90 degrees
 * used-for — usage (e.g., apartment, tabernae, shop, crafting, etc.)
-* city-center — true or false, depending on whether the insula is in the city center
 
 CSV Format Example:
-building-type;width;depth;has-second-floor;start-position-x;start-position-z;rotation;used-for;city-center
-01:rectangular;5;10;true;0;0;0;"shopping";false
-02:rectangular;6;12;false;1;5;-2;"tabernae";false
-03;fence;10;1;false;10;0;0;"";true
-
-Matrix Example (20x20 grid):
-Each cell holds the object ID (e.g., 01, 02…) or __ if empty. The matrix is read top-to-bottom, left-to-right:
-
-01;01;01;01;01;01;01;01;01;01;03;03;03;03;03;03;03;03;03;03
-01;01;01;01;01;01;01;01;01;01;__;__;__;__;__;__;__;__;__;04
-...
-06;__;__;__;__;__;__;__;__;__;__;__;__;__;__;__;__;__;__;04
-06;07;07;07;07;07;07;07;07;07;07;07;07;07;07;07;07;07;07;04
+building-type;width;depth;has-second-floor;start-position-x;start-position-z;rotation;used-for
+01:rectangular;5;10;true;0;0;0;"shopping"
+02:rectangular;6;12;false;6;0;0;"tabernae"
+03;fence;10;1;false;12;0;0;""
 
 """
